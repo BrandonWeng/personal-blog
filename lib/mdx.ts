@@ -35,18 +35,16 @@ export async function getAllFilesFrontMatter(type: string): Promise<PostFrontmat
     const h1Match = content.match(/<h1[^>]*>(.*?)<\/h1>/i);
     const h2Match = content.match(/<h2[^>]*>(.*?)<\/h2>/i);
 
-    return [
-      {
-        ...data,
-        slug: postSlug.replace('.mdx', ''),
-        title: h1Match ? h1Match[1] : undefined,
-        description: h2Match ? h2Match[1] : undefined,
-      },
-      ...allPosts,
-    ];
-  }, []);
-}
+    const postFrontmatter: PostFrontmatter = {
+      ...data,
+      slug: postSlug.replace('.mdx', ''),
+      title: h1Match ? h1Match[1] : data.title || '',
+      description: h2Match ? h2Match[1] : data.description || '',
+    };
 
+    return [...allPosts, postFrontmatter];
+  }, [] as PostFrontmatter[]);
+}
 
 interface PostWithComponent {
   post: Post;
@@ -74,7 +72,7 @@ export async function getPostBySlug(slug: string): Promise<PostWithComponent | n
       frontmatter: data as PostFrontmatter,
     },
     component: MDXComponent.default,
-    title: h1Match ? h1Match[1] : undefined,
-    description: h2Match ? h2Match[1] : undefined,
+    title: h1Match ? h1Match[1] : data.title || '',
+    description: h2Match ? h2Match[1] : data.description || '',
   }
 }
