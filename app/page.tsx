@@ -3,7 +3,6 @@ import { getAllFilesFrontMatter } from "@/lib/mdx"
 
 export default async function Home() {
   const posts = await getAllFilesFrontMatter('posts')
-  console.log("posts", posts)
   return (
     <div className="prose dark:prose-invert">
       {posts.map((post) => (
