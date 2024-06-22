@@ -17,7 +17,7 @@ async function getPageFromParams(params: PageProps["params"]) {
 
   try {
     const source = await fs.readFile(filePath, 'utf8')
-    const { data, content } = matter(source)
+    const { content } = matter(source)
 
     // Dynamically import the MDX file
     const MDXComponent = await import(`@/content/pages/${slug}.mdx`)

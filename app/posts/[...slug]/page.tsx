@@ -11,15 +11,16 @@ interface PostProps {
 export async function generateMetadata({
   params,
 }: PostProps): Promise<Metadata> {
-  const post = await getPostBySlug(params.slug.join('/'))
-
-  if (!post) {
+  const postWithComponent = await getPostBySlug(params.slug.join('/'))
+  if (!postWithComponent) {
     return {}
   }
 
+  const { post, title, description } = postWithComponent
+
   return {
-    title: post.frontmatter.title,
-    description: post.frontmatter.description,
+    title,
+    description,
   }
 }
 
@@ -31,21 +32,15 @@ export async function generateStaticParams(): Promise<PostProps["params"][]> {
 }
 
 export default async function PostPage({ params }: PostProps) {
-  const post = await getPostBySlug(params.slug.join('/'))
-  if (!post) {
+  const postWithComponent = await getPostBySlug(params.slug.join('/'))
+  if (!postWithComponent) {
     notFound()
   }
+  const { post, component: MDXComponent, title, description } = postWithComponent
 
   return (
     <article className="py-6 prose dark:prose-invert">
-      <h1 className="mb-2">{post.frontmatter.title}</h1>
-      {post.frontmatter.description && (
-        <p className="text-xl mt-0 text-slate-7000 dark:text-slate-200">
-          {post.frontmatter.description}
-        </p>
-      )}
-      <hr className="my-4" />
-      <Mdx code={post.content} />
+      <MDXComponent />
     </article>
   )
 }

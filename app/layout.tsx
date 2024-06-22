@@ -28,8 +28,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <div className="flex items-center justify-between">
                 <ModeToggle />
                 <nav className="ml-auto text-sm font-medium space-x-6">
-                  <Link href="/">Home</Link>
-                  <Link href="/about">About</Link>
+                  <Link href="/" prefetch={true}>Home</Link>
+                  <Link href="/about" prefetch={true}>About</Link>
                 </nav>
               </div>
             </header>
