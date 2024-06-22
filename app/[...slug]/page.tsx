@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation"
 import { Metadata } from "next"
-import { allPages } from "contentlayer/generated"
+import fs from "fs/promises"
+import path from "path"
+import matter from 'gray-matter'
 
-import { Mdx } from "@/components/mdx-components"
 
 interface PageProps {
   params: {
@@ -12,13 +13,24 @@ interface PageProps {
 
 async function getPageFromParams(params: PageProps["params"]) {
   const slug = params?.slug?.join("/")
-  const page = allPages.find((page) => page.slugAsParams === slug)
+  const filePath = path.join(process.cwd(), 'content', 'pages', `${slug}.mdx`)
 
-  if (!page) {
-    null
+  try {
+    const source = await fs.readFile(filePath, 'utf8')
+    const { data, content } = matter(source)
+
+    // Dynamically import the MDX file
+    const MDXComponent = await import(`@/content/pages/${slug}.mdx`)
+
+    return {
+      source,
+      slug,
+      content,
+      MDXComponent: MDXComponent.default
+    }
+  } catch (error) {
+    return null
   }
-
-  return page
 }
 
 export async function generateMetadata({
@@ -30,31 +42,36 @@ export async function generateMetadata({
     return {}
   }
 
+  const title = page.source.split('\n')[0].replace('# ', '')
+
   return {
-    title: page.title,
-    description: page.description,
+    title,
   }
 }
 
 export async function generateStaticParams(): Promise<PageProps["params"][]> {
-  return allPages.map((page) => ({
-    slug: page.slugAsParams.split("/"),
-  }))
+  // Read the 'pages' directory and return all MDX file paths
+  const pagesDir = path.join(process.cwd(), 'content', 'pages')
+  const files = await fs.readdir(pagesDir)
+  return files
+    .filter(file => file.endsWith('.mdx'))
+    .map(file => ({
+      slug: file.replace('.mdx', '').split('/'),
+    }))
 }
 
-export default async function PagePage({ params }: PageProps) {
+export default async function AboutPage({ params }: PageProps) {
   const page = await getPageFromParams(params)
 
   if (!page) {
-    notFound()
+    return notFound()
   }
+
+  const { MDXComponent } = page
 
   return (
     <article className="py-6 prose dark:prose-invert">
-      <h1>{page.title}</h1>
-      {page.description && <p className="text-xl">{page.description}</p>}
-      <hr />
-      <Mdx code={page.body.code} />
+      <MDXComponent />
     </article>
   )
 }
