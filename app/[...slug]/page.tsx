@@ -40,12 +40,10 @@ export async function generateMetadata({
 
   if (!page) {
     return {}
-  }
-
-  const title = page.source.split('\n')[0].replace('# ', '')
+    }
 
   return {
-    title,
+    title: page.slug.charAt(0).toUpperCase() + page.slug.slice(1),
   }
 }
 

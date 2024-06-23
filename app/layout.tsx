@@ -32,6 +32,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                   <Link href="/about" prefetch={true}>About</Link>
                 </nav>
               </div>
+              <div className="mt-4 border-b border-zinc-200 dark:border-zinc-700" />
             </header>
             <main>{children}</main>
           </div>

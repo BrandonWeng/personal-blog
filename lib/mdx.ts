@@ -7,6 +7,7 @@ const root = process.cwd()
 interface PostFrontmatter {
   title: string;
   description?: string;
+  date: Date;
   [key: string]: any; // For any additional frontmatter fields
 }
 
@@ -34,16 +35,19 @@ export async function getAllFilesFrontMatter(type: string): Promise<PostFrontmat
 
     const h1Match = content.match(/<h1[^>]*>(.*?)<\/h1>/i);
     const h2Match = content.match(/<h2[^>]*>(.*?)<\/h2>/i);
+    const h3Match = content.match(/<h3[^>]*>(.*?)<\/h3>/i);
 
+    const dateFromMatch = h3Match ? new Date(h3Match[1]) : null;
     const postFrontmatter: PostFrontmatter = {
       ...data,
       slug: postSlug.replace('.mdx', ''),
       title: h1Match ? h1Match[1] : data.title || '',
       description: h2Match ? h2Match[1] : data.description || '',
+      date: dateFromMatch ? dateFromMatch : new Date(),
     };
 
     return [...allPosts, postFrontmatter];
-  }, [] as PostFrontmatter[]);
+  }, [] as PostFrontmatter[]).sort((a, b) => b.date.getTime() - a.date.getTime());
 }
 
 interface PostWithComponent {
