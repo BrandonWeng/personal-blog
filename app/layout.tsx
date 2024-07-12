@@ -3,8 +3,8 @@ import "./globals.css"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Analytics } from "@/components/analytics"
-import { ModeToggle } from "@/components/mode-toggle"
 
+import { Nav } from "@/components/nav"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
@@ -26,17 +26,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <div className="max-w-2xl mx-auto py-10 px-4">
             <header>
               <div className="flex items-center justify-between">
-                <ModeToggle />
-                <nav className="ml-auto text-sm font-medium space-x-6">
-                  <Link href="/" prefetch={true}>Home</Link>
-                  <Link href="/about" prefetch={true}>About</Link>
-                </nav>
+                <Nav />
               </div>
-              <div className="mt-4 border-b border-zinc-200 dark:border-zinc-700" />
             </header>
             <main>{children}</main>
           </div>
-          <Analytics />
+            <Analytics />
         </ThemeProvider>
       </body>
     </html>
