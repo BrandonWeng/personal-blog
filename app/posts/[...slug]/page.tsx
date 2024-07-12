@@ -16,7 +16,7 @@ export async function generateMetadata({
     return {}
   }
 
-  const { post, title, description } = postWithComponent
+  const { title, description } = postWithComponent
 
   return {
     title,
@@ -36,7 +36,7 @@ export default async function PostPage({ params }: PostProps) {
   if (!postWithComponent) {
     notFound()
   }
-  const { post, component: MDXComponent, title, description } = postWithComponent
+  const { component: MDXComponent } = postWithComponent
 
   return (
     <article className="py-6 prose dark:prose-invert">
