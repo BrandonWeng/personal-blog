@@ -1,0 +1,51 @@
+<h1 className="mb-0">What is an agent?</h1>
+<h2 className="mt-2 text-lg font-semibold text-gray-600">Tasks, tools, and collaboration?</h2>
+<h3 className="mt-1 text-sm text-gray-400">August 4, 2024</h3>
+---
+
+
+We've witnessed a rapid shift from AI copilots to the world of agents.
+
+At their core, agents are systems that can take user input (structured or unstructured), process it through a series of steps, and produce an output. They typically consist of three main components: tasks (user instructions), memory (data storage), and tools (functions they can execute).
+
+## The Current Landscape
+
+Startups are building horizontal platforms to enable business users to create and configure their own agents:
+- [BREVIAN](https://brevian.ai/): No-code AI agent platform automating business processes
+- [ema](https://www.ema.co/): AI-powered digital employees for task automation
+- [Relevance AI](https://relevanceai.com/): Customizable AI agents for various business applications
+
+Frameworks are emerging for developers to build their own agents:
+- [LangChain](https://python.langchain.com/v0.1/docs/modules/agents/): Python library for creating language model-powered applications
+- [LlamaIndex](https://docs.llamaindex.ai/en/stable/use_cases/agents/): Python library for building agents that interact with external data
+- [CrewAI](https://docs.crewai.com/core-concepts/Agents/): Framework for orchestrating "crews" of agents
+- [AutoGPT](https://github.com/Significant-Gravitas/Auto-GPT): Open-source framework for autonomous GPT-4 agents
+
+Additionally, companies are developing vertical solutions for specific use cases:
+- [Hebbia](https://www.hebbia.ai/): AI-powered research and analysis for financial services
+- [Harvey](https://www.harvey.ai/): AI legal assistant for law firms
+
+This all sounds promising... if it works.
+
+## So what is an agent?
+
+When you break it down, this current structure isn't too different from a traditional backend server.  
+- User requests come in with some input and some context (tasks)
+- Data is stored and retrieved (memory)
+- Various functions are called to process the request (tools)
+- Communication between "agents" in multi-agent systems is done through API calls or a shared data store (e.g., message queue)
+
+Instead of tightly typed API endpoints, we're dealing with natural language.
+
+## Whats next? 
+
+What excites me about where this is all going is the potential to learn from historical executions and make better decisions on the fly. 
+
+A system powered by a large language model could potentially improve its performance over time, learning from specific tasks or user preferences without explicit code.
+
+Perhaps "Agents" aren't meant to replace our existing services entirely. Instead, they represent a new architectural approach that can work alongside and enhance our current systems. 
+
+More readings if you're interested:
+- [Agents that matter](https://www.aisnakeoil.com/p/new-paper-ai-agents-that-matter)
+- [Teams of LLM Agents can Exploit Zero-Day Vulnerabilities](https://arxiv.org/abs/2406.01637)
+- [Trajectory fine-tuning of agents](https://ishaan-bhola.medium.com/agent-instructions-autonomous-ai-agent-trajectory-fine-tuning-6df42625a48a)
