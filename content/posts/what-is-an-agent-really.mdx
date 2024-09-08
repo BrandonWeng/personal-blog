@@ -1,0 +1,34 @@
+import Image from "next/image";
+
+
+<header>
+    <h1 className="mb-0">What is an agent, really?</h1>
+    <h2 className="mt-2 text-lg font-semibold text-gray-600">Agent-Driven Architectures</h2>
+    <h3 className="mt-1 text-sm text-gray-400">September 4, 2024</h3>
+</header>
+----
+
+<figure className="my-6">
+  <Image priority={true} src="/multi-agents.png" width={718} height={404} alt="Illustration of a person stuck in a spinning cycle" className="rounded-lg shadow-md" />
+</figure>
+
+
+There's still a lot of buzz about "agents" - autonomous AI systems often romanticized as digital employees. But what is an agent, really? Here are some thoughts after self-reflection and discussions with colleagues, from a more engineering perspective, building on my previous blog post, [What is an agent?](https://blog.brandonweng.com/posts/what-is-an-agent).
+
+## An Engineering Perspective
+From an engineering standpoint, agents are systems enabled by large models to perform tasks that historically required human intervention or extensive custom logic. What sets them apart are key characteristics including non-deterministic behavior, continuous learning, progressive autonomy, and bounded autonomy. Agent-driven systems can produce varying outputs for the same input, mimicking human-like variability. They adapt and improve based on interactions and feedback, handling increasingly complex tasks with less oversight over time. Despite their capabilities, agent-driven systems should operate within defined parameters to ensure safety and reliability.
+
+<figure className="my-6">
+  <Image priority={true} src="/agents-blog.png" width={718} height={404} alt="Illustration of a person stuck in a spinning cycle" className="rounded-lg shadow-md" />
+</figure>
+
+## Challenges with Agent-Driven Architectures
+As we move from theory to implementation, several technical challenges emerge. The specific hurdles you'll face depend on your use case, but some common themes arise:
+
+1. **Fault Tolerance**: Traditional fault tolerance relies on well-defined procedures, but agents introduce new complexities. How do we balance error correction with an agent's adaptive capabilities? Developing strategies for maintaining system stability in the face of unpredictable behavior is crucial. This requires robust monitoring and logging systems to track agent decisions and actions, allowing for better error detection and recovery.
+2. **Scaling**: Moving beyond single-machine implementations introduces more challenges. Efficient task delegation across multiple agents may require exploring distributed computing paradigms like map-reduce. We might also consider event-driven architectures inspired by control-plane/data-plane models (where the control-plane manages overall system state and the data-plane handles individual tasks). 
+3. **Data Management**: As agent systems become more complex and as companies scale their usage of agent-driven systems, handling data becomes a critical concern. The ability to fit everything into memory or context windows can quickly become a limiting factor. Moving towards structured formats, similar to data frames in data science or tables in databases, could enhance interoperability. A structured approach would add more deterministic behavior to agent systems, but it also presents its own set of challenges and limitations.
+4. **Human-in-the-Loop**: Effective human oversight is crucial in agent-driven systems. This involves defining clear triggers for human intervention based on confidence levels or specific scenarios. The system must balance agent autonomy with necessary pauses for human decision-making in critical situations. Designing intuitive interfaces for human-agent collaboration is essential, providing transparency into agent reasoning and facilitating effective interaction between human operators and AI agents.
+
+## Going forward
+So, what is an agent, really? It's a complex, adaptive AI system that pushes the boundaries of traditional software architecture. Agents offer exciting possibilities for more flexible, intelligent, and capable systems, but they're not a one-size-fits-all solution. By thoughtfully navigating these challenges and understanding what truly defines an agent, we can harness their power to create innovative solutions – while avoiding the pitfalls of reinventing the wheel or over-engineering our systems.
